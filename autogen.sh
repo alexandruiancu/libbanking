@@ -1,0 +1,21 @@
+#!/bin/sh
+# Run this to generate all the initial makefiles, etc.
+
+test -n "$srcdir" || srcdir=`dirname "$0"`
+test -n "$srcdir" || srcdir=.
+
+OLDDIR=`pwd`
+cd $srcdir
+
+AUTORECONF=`which autoreconf`
+if test -z $AUTORECONF; then
+    echo "*** No autoreconf found, please install it ***"
+    exit 1
+fi
+
+autoreconf --force --install --verbose
+
+cd $OLDDIR
+#echo "$@"
+test -n "$NOCONFIGURE" || "$srcdir/configure" "$@"
+

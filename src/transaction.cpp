@@ -1,0 +1,101 @@
+/*
+
+ libbankingc++ - bank account transactions log analyzer
+
+ Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License
+ as published by the Free Software Foundation; either version 2
+ of the License, or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+*/
+
+#include <csv_parser/csv_parser.hpp>
+#include "transaction.h"
+
+Transaction::Transaction()
+{
+  initialize();
+}
+
+int Transaction::initialize()
+{
+  m_primary_attrs.clear();
+  m_attrs.clear();
+
+  return 0;
+}
+
+int Transaction::set_primary_attributes(const vs &vAttrs)
+{
+  if ( 0 >= vAttrs.size() )
+    return 1;
+  m_primary_attrs.resize(vAttrs.size());
+  int nCount = 0;
+  for ( vs::const_iterator it = vAttrs.begin(); it != vAttrs.end(); ++it )
+    {// init attribute names
+      m_primary_attrs[nCount].first = *it;
+      nCount++;
+    }
+  return 0;
+}
+
+int Transaction::set_primary_attribute_values(const vs &vAttrVals)
+{
+  if ( m_primary_attrs.size() != vAttrVals.size() )
+    return 1;
+  int nCount = 0;
+  for ( vs::const_iterator it = vAttrVals.begin(); it != vAttrVals.end(); ++it )
+    {// init attribute values
+      m_primary_attrs[nCount].second = *it;
+      nCount++;
+    }
+  return 0;
+}
+
+int Transaction::add_attributes(const std::vector<vs> &vAttrVals)
+{
+  for ( std::vector<vs>::const_iterator it = vAttrVals.begin(); it != vAttrVals.end(); ++it )
+    {
+      vs crt = *it;
+      for ( vs::const_iterator vit = crt.begin(); vit != crt.end(); ++vit )
+	{
+	  m_attrs.insert(*vit);
+	}
+    }
+  return 0;
+}
+
+int Transaction::get_credit_index()
+{
+  int nCount = 0;
+  for (std::vector<ps>::iterator it = m_primary_attrs.begin();
+       it != m_primary_attrs.end(); ++it, nCount++)
+    {
+      if ( "Credit" == it->first )
+	return nCount;
+    }
+
+  return 0;
+}
+
+int Transaction::get_transaction_details(std::string &sTransactionDetails)
+{
+  if ( 3 > m_primary_attrs.size() )
+    return 1;
+  sTransactionDetails = m_primary_attrs[2].second;
+  return 0;
+}
+
+
+
