@@ -30,7 +30,7 @@ CXXFLAGS="-std=c++11 $CXXFLAGS"
 
 # add flags
 AC_ARG_ENABLE([debug],
-	[AS_HELP_STRING([--enable-debug], ["Add -DDEBUG -Wall -g3 flags to compiler"])],
+	[AS_HELP_STRING([--enable-debug], ["Add debug flags to compiler"])],
 	[
 	CFLAGS="-DDEBUG -Wall -g3 -O0 $CFLAGS"
 	CXXFLAGS="-DDEBUG -Wall -g3 -O0 $CXXFLAGS"
@@ -53,7 +53,8 @@ AC_ARG_WITH([gtest],
 	GTEST_DIR=$with_gtest
 	AC_SUBST(GTEST_DIR)
 	HAVE_TEST=yes
-	CFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 $CFLAGS"
+	CFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 $CXXFLAGS"
+	CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 $CXXFLAGS"
 	],
 	[
 	AC_MSG_ERROR([missing google test framework library.])
