@@ -89,6 +89,8 @@ int TransactionsFile::filter_credit_transactions(Transactions &ts)
   int nIndex = -1;
   for (Transactions::iterator it = ts.end(); it != ts.begin(); --it)
     {
+      if ( 0 == (*it).m_primary_attrs.size() )
+	continue;
       if ( -1 == nIndex )
 	nIndex = (*it).get_credit_index();
       if ( !it->m_primary_attrs[nIndex].second.empty() )

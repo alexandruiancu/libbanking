@@ -3,7 +3,7 @@ dnl -*- Autoconf -*-
 
 AC_PREREQ(2.61)
 
-AC_INIT([libbankingc++],
+AC_INIT([libbanking],
 	[0.1.0],
 	[alexandru.iancu@gmail.com])
 
@@ -28,16 +28,16 @@ AC_CACHE_SAVE
 
 CXXFLAGS="-std=c++11 $CXXFLAGS"
 
-# Checks for flags
+# add flags
 AC_ARG_ENABLE([debug],
 	[AS_HELP_STRING([--enable-debug], ["Add -DDEBUG -Wall -g3 flags to compiler"])],
 	[
-	CFLAGS="-DDEBUG -Wall -g3 $CFLAGS"
-	CXXFLAGS="-DDEBUG -Wall -g3 $CXXFLAGS"
+	CFLAGS="-DDEBUG -Wall -g3 -O0 $CFLAGS"
+	CXXFLAGS="-DDEBUG -Wall -g3 -O0 $CXXFLAGS"
 	],
 	[])
 
-# Checks for libraries.
+# csv library
 AC_ARG_WITH([csvparser],
 	[AS_HELP_STRING([--with-csvparser],["Add csv_parser lib include and link paths"])],
 	[
@@ -46,23 +46,41 @@ AC_ARG_WITH([csvparser],
 	],
 	[AC_MSG_ERROR([missing csv_parser library.])])
 
+# ass google test library
+AC_ARG_WITH([gtest],
+	[AS_HELP_STRING([--with-gtest],["Add google test framework library include and link paths"])],
+	[
+	GTEST_DIR=$with_gtest
+	AC_SUBST(GTEST_DIR)
+	HAVE_TEST=yes
+	CFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 $CFLAGS"
+	],
+	[
+	AC_MSG_ERROR([missing google test framework library.])
+	HAVE_TEST=no
+	])
+
+AM_CONDITIONAL([BUILD_TESTS],[test "$HAVE_TEST" = "yes"])
 
 AC_CONFIG_FILES([
 	Makefile
 	include/Makefile
 	src/Makefile
+	test/Makefile
 ])
 
 AC_OUTPUT
 
 echo "
-    libbankingc++ $VERSION
+    $PACKAGE $VERSION
 
-    prefix: 	    ${prefix}
-    C compiler:	    ${CC}
-    C++ compiler:   ${CXX}
-    LDFLAGS:	    ${LDFLAGS}
-    CSVPARSER_DIR:  ${CSVPARSER_DIR}
+    prefix:		${prefix}
+    C compiler:		${CC}
+    C++ compiler:	${CXX}
+    LDFLAGS:		${LDFLAGS}
+    CSVPARSER_DIR:	${CSVPARSER_DIR}
+    GTEST_DIR:	        ${GTEST_DIR}
+    HAVE_TEST:		$HAVE_TEST
 
     Now type 'make' to build $PACKAGE
 "
