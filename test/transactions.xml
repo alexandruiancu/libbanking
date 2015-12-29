@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transactions>
+  <class name="cash" Detalii="Retragere numerar" Debit="true" Credit="false">
+    <transaction Date="31 octombrie 2015" Detalii="Retragere numerar" Debit="540,00" Credit="">
+      <properties>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property></property>
+	<property>Terminal: 5554 ING OFFICE OLTENIT</property>
+      </properties>
+    </transaction>
+  </class>
+  <class name="Transferuri OP" Detalii="Incasare" Debit="false" Credit="true">
+    <transaction Date="30 octombrie 2015" Detalii="Incasare" Debit="" Credit="2.000,00">
+      <properties>
+	<property>Ordonator: Popescu Decebal</property>
+	<property>Din contul: ABCDEFGHIJKLMNOPRSTUVXYZ</property>
+	<property>Detalii: film</property>
+      </properties>
+    </transaction>
+  </class>
+</transactions>

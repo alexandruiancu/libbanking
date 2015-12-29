@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classes>
+  <class name="cash" Detalii="Retragere numerar" Debit="true" Credit="false">
+    <member_name_or_details>
+      <name>Retragere numerar</name>
+      <name>Plata in piata</name>
+      <name></name>
+      <name></name>
+      <name></name>
+    </member_name_or_details>
+  </class>
+</classes>

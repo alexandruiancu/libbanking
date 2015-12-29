@@ -1,6 +1,6 @@
 /*
 
- libbankingc - bank account transactions log analyzer
+ libbankingc++ - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 
@@ -20,48 +20,20 @@
 
 */
 
-#include <string>
-#include <sstream>
-#include <map>
-#include <csv_parser/csv_parser.hpp>
-#include "transaction.h"
 #include "transaction_class.h"
 
-TransactionClass::TransactionClass(std::string sLabel, Transactions &ts)
+TransactionClass::TransactionClass()
 {
-  m_sLabel = sLabel;
-  
-  ps p;
-  m_primary_attrs.push_back(p);//empty date
-  m_primary_attrs.push_back(p);//empty second place
-
-  p.first = "Debit";
-  int nDebitValue = 0;
-  std::stringstream ss;
-  int nTemp = 0;
-  for ( Transactions::iterator it = ts.begin(); it != ts.end(); ++it )
-    {
-      ss << it->m_primary_attrs[2].second;
-      ss >> nTemp;
-      nDebitValue += nTemp;
-      ss.str("");//empty stream
-    }
-  ss << nDebitValue;
-  p.second = ss.str();
-  m_primary_attrs.push_back(p);
-  p.first = "";
-  p.second = "";
-  m_primary_attrs.push_back(p);
-  m_primary_attrs.push_back(p);
-  m_primary_attrs.push_back(p);
 }
 
-
-
-
-
-
-
+int TransactionClass::as_xml(std::string &sOut)
+{
+  sOut = "<class name=\"" + m_sLabel + "\"";
+  as_xml_primary_attributes(sOut);
+  as_xml_attributes(sOut);
+  sOut += "</class>";
+  return 0;
+}
 
 
 

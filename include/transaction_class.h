@@ -21,21 +21,19 @@
 */
 
 #pragma once
-
-#include <map>
 #include "transaction.h"
-#include "types.h"
 
+/*
+ * Can be a class of transactions(their parent), or a transaction split 
+ * logically(at least 2 logical child transactions)
+ */
 class TransactionClass : public Transaction
 {
  public:
-  TransactionClass(std::string sLabel, Transactions &ts);
+  TransactionClass();
+  virtual int as_xml(std::string &sOut);
+  
   std::string m_sLabel;
+  std::vector<Transaction *> m_arrTransactions;
 };
-
-typedef std::vector<TransactionClass> TransactionsClass;
-
-
-
-
 

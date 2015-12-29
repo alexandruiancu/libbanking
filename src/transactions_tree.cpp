@@ -20,14 +20,17 @@
 
 */
 
-#include "transactions_configuration.h"
 #include "transactions_tree.h"
 
-TransactionTree::TransactionTree()
-  :m_cfg("")
+TransactionsTree::TransactionsTree()
+  :m_sClassificationFileName(""), m_pRoot(nullptr)
 {
 }
 
-
+int TransactionsTree::build_class_tree()
+{
+  //TODO: implement
+  return 0;
+}
 
 

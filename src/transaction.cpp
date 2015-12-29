@@ -97,5 +97,34 @@ int Transaction::get_transaction_details(std::string &sTransactionDetails)
   return 0;
 }
 
+int Transaction::as_xml(std::string &sOut)
+{
+  sOut = "<transaction ";
+  as_xml_primary_attributes(sOut);
+  as_xml_attributes(sOut);
+  sOut += "</transaction>";
+  return 0;
+}
+
+int Transaction::as_xml_primary_attributes(std::string &sOut)
+{
+  for (std::vector<ps>::iterator it = m_primary_attrs.begin(); it != m_primary_attrs.end(); it++)
+    {
+      sOut += it->first + "=\"" + it->second + "\" ";
+    }
+  sOut += ">\n";
+  return 0;
+}
+
+int Transaction::as_xml_attributes(std::string &sOut)
+{
+  sOut += "<properties>\n";
+  for (ss::iterator it = m_attrs.begin(); it != m_attrs.end(); it++)
+    {
+      sOut += "<property>" + *it + "</property>\n";
+    }
+  sOut += "</properties>\n";
+  return 0;
+}
 
 

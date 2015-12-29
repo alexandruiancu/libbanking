@@ -23,15 +23,17 @@
 #pragma once
 
 #include "transaction_class.h"
-#include "transaction_tree_node.h"
 
-class TransactionTree
+class TransactionsTree
 {
  public:
-  TransactionTree();
+  TransactionsTree();
+  int as_xml(std::string &sOut);
+  
  protected:
-  CategoryConfig m_cfg;
-  TransactionNode *m_pRoot;
+  int build_class_tree();
+  std::string m_sClassificationFileName;
+  TransactionClass *m_pRoot;
 };
 
 
