@@ -25,10 +25,38 @@
 #include "transaction.h"
 #include "transactions_csv.h"
 
+#include <locale.h>
+#include <langinfo.h>
+#include <iostream>
+#include <ostream>
+#include <sstream>
+#include <iomanip>
+
 TEST(TransactionCSVFileTests, General) {
   Transactions ts;
   TransactionsFile tf("transactions.csv");
   EXPECT_EQ (0, tf.load_transactions_file(ts, "transactions.csv"));
+}
+
+TEST(ParseNumericStrings_C, General) {
+  //use C locale
+  const char *pOldLocale = setlocale(LC_ALL, "ro_RO.UTF-8");
+  double d1 = 1000.43, d2;
+  sscanf("1.000,43", "%'lf", &d2);
+  EXPECT_EQ (d1, d2);
+  setlocale(LC_NUMERIC, pOldLocale);
+}
+
+TEST(ParseNumericStrings_Cpp, General) {
+  // use C++ locale
+  std::stringstream ss("1.000,43");
+  std::locale loc("ro_RO.UTF-8");
+  ss.imbue(loc);
+  //char separator = std::use_facet< std::numpunct<char> >(ss.getloc()).thousands_sep();
+  //std::cout << separator << std::endl;
+  double d;
+  ss >> d;
+  EXPECT_EQ (1000.43, d);
 }
 
 int main(int argc, char **argv) {
