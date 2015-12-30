@@ -40,11 +40,13 @@ TEST(TransactionCSVFileTests, General) {
 
 TEST(ParseNumericStrings_C, General) {
   //use C locale
-  const char *pOldLocale = setlocale(LC_ALL, "ro_RO.UTF-8");
+  //sugestion: https://sourceware.org/ml/libc-help/2015-10/msg00002.html
+  int nLocType = LC_NUMERIC;
+  const char *pOldLocale = setlocale(nLocType, "ro_RO.UTF-8");
   double d1 = 1000.43, d2;
   sscanf("1.000,43", "%'lf", &d2);
   EXPECT_EQ (d1, d2);
-  setlocale(LC_NUMERIC, pOldLocale);
+  setlocale(nLocType, pOldLocale);
 }
 
 TEST(ParseNumericStrings_Cpp, General) {
