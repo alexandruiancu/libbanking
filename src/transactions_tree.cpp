@@ -20,17 +20,118 @@
 
 */
 
+#include <libxml/parser.h>
+//#include <libxml/tree.h>
+
 #include "transactions_tree.h"
 
 TransactionsTree::TransactionsTree()
-  :m_sClassificationFileName(""), m_pRoot(nullptr)
 {
 }
 
-int TransactionsTree::build_class_tree()
+int TransactionsTree::load_classification(const std::string &sFilePath)
 {
-  //TODO: implement
+  if ( sFilePath.empty() )
+    return 1;
+
+  /*
+   * this initialize the library and check potential ABI mismatches
+   * between the version it was compiled for and the actual shared
+   * library used.
+   */
+  LIBXML_TEST_VERSION
+
+    xmlDocPtr pDoc = xmlReadFile(sFilePath.c_str(), nullptr, 0);
+  if ( nullptr == pDoc )
+    return 2;
+  xmlNodePtr pRoot = xmlDocGetRootElement(pDoc);
+  const xmlChar *pRootNodeName = xmlCharStrdup("classes");
+  if ( nullptr == pRoot || 0 != xmlStrcmp(pRoot->name, pRootNodeName) )
+    {
+      delete [] pRootNodeName;
+      return 3;
+    }
+  delete [] pRootNodeName;
+  std::vector<xmlNodePtr> arrClasses;
+  for ( xmlNodePtr pChild = pRoot->children; nullptr != pChild; pChild = pChild->next )
+    {
+      if ( XML_ELEMENT_NODE != pChild->type )
+	continue;
+      arrClasses.push_back(xmlCopyNode(pChild, 1));
+    }
+  xmlFreeDoc(pDoc);
+  xmlCleanupParser();
+
+  if ( 0 != build_classes_tree(arrClasses) )
+    return 4;
   return 0;
 }
+
+int TransactionsTree::build_classes_tree(std::vector<xmlNodePtr> &arrClasses)
+{
+  unsigned int nSize = arrClasses.size();
+  if ( 0 == nSize )
+    return 0;
+
+  do
+    {
+      std::vector<xmlNodePtr>::iterator it = arrClasses.begin();
+      while ( it != arrClasses.end() )
+	{
+	  xmlNodePtr pCrt = *it;
+	  xmlNodePtr pMembers = pCrt->children;
+	  if ( nullptr == pMembers || XML_ELEMENT_NODE != pMembers->type )
+	    {
+	      ++it;
+	      continue;
+	    }
+
+	  bool bIncrement = true;
+	  for ( xmlNodePtr pMember = pMembers->children; nullptr != pMember; )
+	    {
+	      if ( XML_ELEMENT_NODE != pMember->type )
+		{
+		  pMember = pMember->next;
+		  continue;
+		}
+	      xmlChar *pHRefAttrName = xmlCharStrdup("href");
+	      xmlChar *pHRef = xmlGetProp(pMember, pHRefAttrName);
+	      delete [] pHRefAttrName;
+	      if ( 0 == xmlStrlen(pHRef) )
+		{
+		  pMember = pMember->next;
+		  continue;
+		}
+
+	      std::vector<xmlNodePtr>::iterator it2 = it;
+	      xmlChar *pIdAttrName = xmlCharStrdup("id");
+	      xmlChar *pId = xmlGetProp(*it2, pIdAttrName);
+	      delete [] pIdAttrName;
+	      while ( it != arrClasses.end() )
+		{
+		  if ( 0 == xmlStrcmp(pHRef+1/*skip '#'*/, pId) )
+		    {
+		      xmlAddChild(pMember, *it2);
+		      arrClasses.erase(it2);
+		      bIncrement = false;
+		      break;
+		    }
+		}
+	      if ( bIncrement )
+		pMember = pMember->next;
+	    }
+	}
+    }
+  while ( nSize != arrClasses.size() );
+  for ( std::vector<xmlNodePtr>::iterator it = arrClasses.begin(); it != arrClasses.end(); ++it )
+    {
+      m_arrRoots.push_back(new TransactionClass(*it));
+      delete *it;
+    }
+
+  return 0;
+}
+
+
 
 

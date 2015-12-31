@@ -21,16 +21,17 @@
 */
 
 #pragma once
+#include <libxml/tree.h>
 #include "transaction.h"
 
 /*
- * Can be a class of transactions(their parent), or a transaction split 
- * logically(at least 2 logical child transactions)
+ * Can be a class of transactions(their parent)
  */
 class TransactionClass : public Transaction
 {
  public:
   TransactionClass();
+  TransactionClass(const xmlNodePtr rhs);
   virtual int as_xml(std::string &sOut);
   
   std::string m_sLabel;

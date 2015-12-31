@@ -20,9 +20,14 @@
 
 */
 
+#include <libxml/tree.h>
 #include "transaction_class.h"
 
 TransactionClass::TransactionClass()
+{
+}
+
+TransactionClass::TransactionClass(const xmlNodePtr rhs)
 {
 }
 

@@ -24,6 +24,7 @@
 #include "gtest/gtest.h"
 #include "transaction.h"
 #include "transactions_csv.h"
+#include "transactions_tree.h"
 
 #include <locale.h>
 #include <langinfo.h>
@@ -35,7 +36,7 @@
 TEST(TransactionCSVFileTests, General) {
   Transactions ts;
   TransactionsFile tf("transactions.csv");
-  EXPECT_EQ (0, tf.load_transactions_file(ts, "transactions.csv"));
+  EXPECT_EQ (0, tf.load_transactions_file(ts, "transactions_in.csv"));
 }
 
 TEST(ParseNumericStrings_C, General) {
@@ -61,13 +62,21 @@ TEST(ParseNumericStrings_Cpp, General) {
   EXPECT_EQ (1000.43, d);
 }
 
+TEST(TransactionsTree_load_classification, General) {
+  TransactionsTree tt;
+  std::string sClassificationPath("classification.xml");
+  EXPECT_EQ (0, tt.load_classification(sClassificationPath));
+}
+
 int main(int argc, char **argv) {
-  // int i = 100000;
-  // while ( 0 < i )
-  //   {
-  //     usleep(500);
-  //     i--;
-  //   }
+#ifdef __ATTACH_DEBUG__
+  int i = 100000;
+  while ( 0 < i )
+    {
+      usleep(500);
+      i--;
+    }
+#endif // __ATTACH_DEBUG__
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }

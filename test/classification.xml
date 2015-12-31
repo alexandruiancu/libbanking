@@ -1,12 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classes>
-  <class name="cash" Detalii="Retragere numerar" Debit="true" Credit="false">
-    <member_name_or_details>
-      <name>Retragere numerar</name>
-      <name>Plata in piata</name>
-      <name></name>
-      <name></name>
-      <name></name>
-    </member_name_or_details>
+  <class id="cash" Detalii="operatii cu numerar" Debit="true" Credit="false">
+    <members>
+      <m href="#Retragere"/>
+      <m href="#Film"/>
+    </members>
+  </class>
+  <class id="Retragere" Detalii="Retragere numerar - diverse" Debit="true" Credit="false">
+    <members>
+      <m href="#Piata"/>
+      <m href="#Gradi"/>
+    </members>
+  </class>
+  <class id="Piata" Detalii="Legume sau fructe de la tarani" Debit="true" Credit="false">
+    <members/>
+  </class>
+  <class id="Gradi" Detalii="fara OP" Debit="true" Credit="false">
+    <members>
+      <m href="#CursuriGradi"/>
+      <m href="#Materiale"/>
+    </members>
+  </class>
+  <class id="CursuriGradi" Detalii="Cursurile facultative" Debit="true" Credit="false">
+    <members/>
+  </class>
+  <class id="Materiale" Detalii="Poze, calendare, etc" Debit="true" Credit="false">
+    <members/>
+  </class>
+  <class id="Film" Detalii="La film fara card" Debit="true" Credit="false">
+    <members/>
   </class>
 </classes>

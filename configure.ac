@@ -46,6 +46,15 @@ AC_ARG_WITH([csvparser],
 	],
 	[AC_MSG_ERROR([missing csv_parser library.])])
 
+# libxml library
+AC_ARG_WITH([libxml],
+	[AS_HELP_STRING([--with-libxml],["Add libxml lib include and link paths"])],
+	[
+	LIBXML_DIR=$with_libxml
+	AC_SUBST(LIBXML_DIR)
+	],
+	[AC_MSG_ERROR([missing libxml library.])])
+
 # ass google test library
 AC_ARG_WITH([gtest],
 	[AS_HELP_STRING([--with-gtest],["Add google test framework library include and link paths"])],
@@ -78,8 +87,11 @@ echo "
     prefix:		${prefix}
     C compiler:		${CC}
     C++ compiler:	${CXX}
+    C flags:		${CFLAGS}
+    C++ flags:		${CXXFLAGS}
     LDFLAGS:		${LDFLAGS}
     CSVPARSER_DIR:	${CSVPARSER_DIR}
+    LIBXML_DIR:	        ${LIBXML_DIR}
     GTEST_DIR:	        ${GTEST_DIR}
     HAVE_TEST:		$HAVE_TEST
 

@@ -28,12 +28,12 @@ class TransactionsTree
 {
  public:
   TransactionsTree();
+  int load_classification(const std::string &sFilePath);
   int as_xml(std::string &sOut);
   
  protected:
-  int build_class_tree();
-  std::string m_sClassificationFileName;
-  TransactionClass *m_pRoot;
+  int build_classes_tree(std::vector<xmlNodePtr> &arrClasses);
+  std::vector<TransactionClass *> m_arrRoots;
 };
 
 
