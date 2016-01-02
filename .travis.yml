@@ -17,6 +17,7 @@ install:
  - git clone https://github.com/alexandruiancu/googletest.git
  - mkdir build
  - cd ./build
+ - ls -la
  - cmake ..
  - cd ../..
  - mkdir ./libcsv_parser-1.0.0
