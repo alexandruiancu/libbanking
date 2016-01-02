@@ -12,8 +12,19 @@ install:
  - ${CXX} -v
  #dependencies
  - cd ..
- - mkdir ./googletest;cd ./googletest;git clone https://github.com/alexandruiancu/googletest.git;mkdir build;cd ./build;cmake ..;cd ../..
- - mkdir ./libcsv_parser-1.0.0;git clone https://github.com/alexandruiancu/libcsv_parser-1.0.0.git;cd ./libcsv_parser++-1.0.0;./configure;make VERBOSE=1;cd ../..
+ - mkdir ./googletest
+ - cd ./googletest
+ - git clone https://github.com/alexandruiancu/googletest.git
+ - mkdir build
+ - cd ./build
+ - cmake ..
+ - cd ../..
+ - mkdir ./libcsv_parser-1.0.0
+ - git clone https://github.com/alexandruiancu/libcsv_parser-1.0.0.git
+ - cd ./libcsv_parser++-1.0.0
+ - ./configure
+ - make VERBOSE=1
+ - cd ../..
  - cd ./libbanking
 addons:
   apt:
