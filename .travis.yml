@@ -1,0 +1,41 @@
+# This file can be validated on:
+# http://lint.travis-ci.org/
+
+before_install:
+ - sudo apt-get install -y libxml2-dev
+install:
+ # /usr/bin/gcc is 4.6 always, but gcc-X.Y is available.
+ - if [ "$CXX" = "g++" ]; then export CXX="g++-4.9" CC="gcc-4.9"; fi
+ - echo ${PATH}
+ - echo ${CXX}
+ - ${CXX} --version
+ - ${CXX} -v
+ #dependencies
+ - cd..
+ - mkdir ./googletest;cd ./googletest;git clone https://github.com/alexandruiancu/googletest.git;mkdir build;cd ./build;cmake ..;cd ../..
+ - mkdir ./libcsv_parser-1.0.0;git clone https://github.com/alexandruiancu/libcsv_parser-1.0.0.git;cd ./libcsv_parser++-1.0.0;./configure;make VERBOSE=1;cd ../..
+addons:
+  apt:
+    # List of whitelisted in travis packages for ubuntu-precise can be found here:
+    #   https://github.com/travis-ci/apt-package-whitelist/blob/master/ubuntu-precise
+    # List of whitelisted in travis apt-sources:
+    #   https://github.com/travis-ci/apt-source-whitelist/blob/master/ubuntu.json
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - gcc-4.9
+    - g++-4.9
+    - valgrind
+os:
+ - linux
+language: cpp
+compiler:
+ - gcc
+script: ./autogen.sh
+
+
+
+
+
+
+
