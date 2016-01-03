@@ -28,11 +28,11 @@
 class TransactionsFile
 {
  public:
+  TransactionsFile();
   TransactionsFile(const std::string &sPath);
   int load_transactions_file(Transactions &ts, const char *szPath);
-  int load_transactions_file(Transactions &ts, const std::string &sPath);
+  //int load_transactions_file(Transactions &ts, const std::string &sPath);
   int filter_credit_transactions(Transactions &ts);
-  //int classify_transactions(const Transactions &ts, t_c_node &root);
   bool is_transaction_start_row(std::vector<std::string> vRow);
 
   Transactions m_transactions;

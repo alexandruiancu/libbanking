@@ -38,3 +38,8 @@ class TransactionClass : public Transaction
   std::vector<Transaction *> m_arrTransactions;
 };
 
+typedef std::vector<TransactionClass *> TransactionClasses;
+
+
+
+

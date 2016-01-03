@@ -24,7 +24,7 @@
 #include "gtest/gtest.h"
 #include "transaction.h"
 #include "transactions_csv.h"
-#include "transactions_tree.h"
+#include "transactions_cfg.h"
 
 #include <locale.h>
 #include <langinfo.h>
@@ -62,10 +62,9 @@ TEST(ParseNumericStrings_Cpp, General) {
   EXPECT_EQ (1000.43, d);
 }
 
-TEST(TransactionsTree_load_classification, General) {
-  TransactionsTree tt;
-  std::string sClassificationPath("classification.xml");
-  EXPECT_EQ (0, tt.load_classification(sClassificationPath));
+TEST(TransactionsClassesCfg_load_classification, General) {
+  TransactionsClassesCfg tt;
+  EXPECT_EQ (0, tt.load_classification("classification.xml"));
 }
 
 int main(int argc, char **argv) {

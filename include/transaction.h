@@ -9,6 +9,7 @@ class Transaction
 {
  public:
   Transaction();
+  ~Transaction();
   int initialize();
   int set_primary_attributes(const vs &vAttrs);
   int set_primary_attribute_values(const vs &vAttrVals);
@@ -25,16 +26,8 @@ class Transaction
   int as_xml_attributes(std::string &sOut);
 };
 
-typedef std::vector<Transaction> Transactions;
+typedef std::vector<Transaction *> Transactions;
 
-/* struct Node */
-/* { */
-/*   std::string m_sName; */
-/*   float       m_nValue; */
-/*   std::list<Transaction> m_children; */
-/* }; */
-
-/* int build_c_tree(Node &root, t_c_node *c_root); */
 
 
 

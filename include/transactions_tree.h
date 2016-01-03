@@ -22,20 +22,20 @@
 
 #pragma once
 
-#include "transaction_class.h"
+#include <libxml/tree.h>
+
+#include "transactions_csv.h"
+#include "transactions_cfg.h"
 
 class TransactionsTree
 {
  public:
   TransactionsTree();
-  int load_classification(const std::string &sFilePath);
-  int as_xml(std::string &sOut);
-  
- protected:
-  int build_classes_tree(std::vector<xmlNodePtr> &arrClasses);
-  std::vector<TransactionClass *> m_arrRoots;
+
+  int set_transactions_csv(const TransactionsFile &csv);
+  int set_transactions_cfg(const TransactionsClassesCfg &cfg);
+  int classify_transactions(xmlNodePtr pTransactionsRoot);
+
+  TransactionsFile m_csv;
+  TransactionsClassesCfg m_cfg;
 };
-
-
-
-

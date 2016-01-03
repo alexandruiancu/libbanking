@@ -23,9 +23,13 @@
 #include <csv_parser/csv_parser.hpp>
 #include "transactions_csv.h"
 
+TransactionsFile::TransactionsFile()
+{
+}
+
 TransactionsFile::TransactionsFile(const std::string &sPath)
 {
-  if ( 0 != load_transactions_file(m_transactions, sPath) ||
+  if ( 0 != load_transactions_file(m_transactions, sPath.c_str()) ||
        filter_credit_transactions(m_transactions) )
     m_transactions.clear();
 }
@@ -33,24 +37,19 @@ TransactionsFile::TransactionsFile(const std::string &sPath)
 int TransactionsFile::load_transactions_file(Transactions &ts, const char *szPath)
 {
   if ( nullptr == szPath )
-    return 100;
-  std::string sPath(szPath);
-  return load_transactions_file(ts, sPath);
-}
+    return 1;
 
-int TransactionsFile::load_transactions_file(Transactions &ts, const std::string &sPath)
-{
   ts.clear();
 
   csv_parser parser;
-  if ( !parser.init(sPath.c_str()) )
+  if ( !parser.init(szPath) )
     return 1;
   parser.set_enclosed_char('\"', ENCLOSURE_OPTIONAL);
   
   if ( !parser.has_more_rows() )
     return 2;
   const csv_row &rowAttributes = parser.get_row();
-  Transaction t;
+  Transaction *pT = nullptr;
   bool bDiscardTransaction = false;
   std::vector<csv_row> transaction_rows;
 
@@ -61,14 +60,17 @@ int TransactionsFile::load_transactions_file(Transactions &ts, const std::string
 	{
 	  if ( !bDiscardTransaction && 0 != transaction_rows.size() )
 	    {
-	      t.add_attributes(transaction_rows);
-	      ts.push_back(t);
+	      pT->add_attributes(transaction_rows);
+	      ts.push_back(pT);
+	      pT = nullptr;
 	    }
 
+	  if ( nullptr == pT )
+	    pT = new Transaction();
 	  bDiscardTransaction =
-	    (0 != t.initialize() ||
-	     0 != t.set_primary_attributes(rowAttributes) ||
-	     0 != t.set_primary_attribute_values(row));
+	    (0 != pT->initialize() ||
+	     0 != pT->set_primary_attributes(rowAttributes) ||
+	     0 != pT->set_primary_attribute_values(row));
 	  transaction_rows.clear();
 	}
       else
@@ -76,10 +78,11 @@ int TransactionsFile::load_transactions_file(Transactions &ts, const std::string
     }
 
   // add last transaction
-  if ( !bDiscardTransaction && 0 != transaction_rows.size() )
+  if ( !bDiscardTransaction && 0 != transaction_rows.size() &&
+       nullptr != pT )
     {
-      t.add_attributes(transaction_rows);
-      ts.push_back(t);
+      pT->add_attributes(transaction_rows);
+      ts.push_back(pT);
     }
   return 0;
 }
@@ -89,21 +92,16 @@ int TransactionsFile::filter_credit_transactions(Transactions &ts)
   int nIndex = -1;
   for (Transactions::iterator it = ts.end(); it != ts.begin(); --it)
     {
-      if ( 0 == (*it).m_primary_attrs.size() )
+      if ( 0 == (*it)->m_primary_attrs.size() )
 	continue;
       if ( -1 == nIndex )
-	nIndex = (*it).get_credit_index();
-      if ( !it->m_primary_attrs[nIndex].second.empty() )
+	nIndex = (*it)->get_credit_index();
+      if ( !(*it)->m_primary_attrs[nIndex].second.empty() )
 	ts.erase(it);
     }
 
   return 0;
 }
-
-// int TransactionsFile::classify_transactions(const Transactions &ts, t_c_node &root)
-// {
-//   return 0;
-// }
 
 bool TransactionsFile::is_transaction_start_row(vs vRow)
 {

@@ -22,14 +22,19 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
-#include <set>
-#include <utility>
+#include "transaction_class.h"
 
-typedef std::vector<std::string> vs;
-typedef std::pair<std::string, std::string> ps;
-typedef std::set<std::string> ss;
+class TransactionsClassesCfg
+{
+ public:
+  TransactionsClassesCfg();
+  int load_classification(const char *szFilePath);
+  int as_xml(std::string &sOut);
+  
+ protected:
+  int build_classes_tree(std::vector<xmlNodePtr> &arrClasses);
+  TransactionClasses m_arrRoots;
+};
 
 
 
