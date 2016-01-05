@@ -67,6 +67,11 @@ int TransactionsClassesCfg::load_classification(const char *szFilePath)
   return 0;
 }
 
+const TransactionClasses &TransactionsClassesCfg::getTransactionClasses() const
+{
+  return m_arrRoots;
+}
+
 int TransactionsClassesCfg::build_classes_tree(std::vector<xmlNodePtr> &arrClasses)
 {
   unsigned int nSize = arrClasses.size();

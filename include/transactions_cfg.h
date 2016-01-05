@@ -30,6 +30,7 @@ class TransactionsClassesCfg
   TransactionsClassesCfg();
   int load_classification(const char *szFilePath);
   int as_xml(std::string &sOut);
+  const TransactionClasses &getTransactionClasses() const;
   
  protected:
   int build_classes_tree(std::vector<xmlNodePtr> &arrClasses);

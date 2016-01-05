@@ -32,10 +32,10 @@ class TransactionsTree
  public:
   TransactionsTree();
 
-  int set_transactions_csv(const TransactionsFile &csv);
+  int set_transactions(const TransactionsFile &csv);
   int set_transactions_cfg(const TransactionsClassesCfg &cfg);
   int classify_transactions(xmlNodePtr pTransactionsRoot);
 
-  TransactionsFile m_csv;
-  TransactionsClassesCfg m_cfg;
+  Transactions m_transactions;
+  TransactionClasses m_cfgTransactionClasses;
 };
