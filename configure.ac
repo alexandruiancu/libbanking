@@ -70,7 +70,7 @@ AC_ARG_WITH([gtest],
 	HAVE_TEST=no
 	])
 
-PKG_CHECK_MODULES([libbanking], libxml++-2.6 >= 2.40)
+PKG_CHECK_MODULES([libbanking], libxml++-2.6 >= 2.30)
 AC_SUBST(libbanking_CFLAGS)
 AC_SUBST(libbanking_LIBS)
 
