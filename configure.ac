@@ -70,6 +70,10 @@ AC_ARG_WITH([gtest],
 	HAVE_TEST=no
 	])
 
+PKG_CHECK_MODULES([libbanking], libxml++-2.6 >= 2.40)
+AC_SUBST(libbanking_CFLAGS)
+AC_SUBST(libbanking_LIBS)
+
 AM_CONDITIONAL([BUILD_TESTS],[test "$HAVE_TEST" = "yes"])
 
 AC_CONFIG_FILES([
