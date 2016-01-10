@@ -35,7 +35,7 @@
 
 TEST(TransactionCSVFileTests, General) {
   Transactions ts;
-  TransactionsFile tf("transactions.csv");
+  TransactionsFile tf("transactions_in.csv");
   EXPECT_EQ (0, tf.load_transactions_file(ts, "transactions_in.csv"));
 }
 

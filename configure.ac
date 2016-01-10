@@ -26,16 +26,24 @@ AC_PROG_INSTALL
 ## don't rerun to this point if we abort
 AC_CACHE_SAVE
 
-CXXFLAGS="-std=c++11 $CXXFLAGS"
+DEFAULT_CFLAGS=$CFLAGS
+DEFAULT_CXXFLAGS=$CXXFLAGS
 
 # add flags
 AC_ARG_ENABLE([debug],
 	[AS_HELP_STRING([--enable-debug], ["Add debug flags to compiler"])],
 	[
-	CFLAGS="-DDEBUG -Wall -g3 -O0 $CFLAGS"
-	CXXFLAGS="-DDEBUG -Wall -g3 -O0 $CXXFLAGS"
+	CFLAGS="-DDEBUG -D__ATTACH_DEBUG__ -Wall -g3 -O0"
+	CXXFLAGS="-DDEBUG -D__ATTACH_DEBUG__ -Wall -g3 -O0"
 	],
 	[])
+
+AC_ARG_ENABLE([c++11],
+	[AS_HELP_STRING([--disable-c++11], ["Before C++11 compilation"])],
+	[],
+	[
+	CXXFLAGS="-std=c++11 $CXXFLAGS"
+	])
 
 # csv library
 AC_ARG_WITH([csvparser],
@@ -62,8 +70,6 @@ AC_ARG_WITH([gtest],
 	GTEST_DIR=$with_gtest
 	AC_SUBST(GTEST_DIR)
 	HAVE_TEST=yes
-#	CFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 $CXXFLAGS"
-#	CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0 $CXXFLAGS"
 	],
 	[
 	AC_MSG_ERROR([missing google test framework library.])
@@ -91,6 +97,8 @@ echo "
     prefix:		${prefix}
     C compiler:		${CC}
     C++ compiler:	${CXX}
+    default C flags:	${DEFAULT_CFLAGS}
+    default C++ flags:	${DEFAULT_CXXFLAGS}
     C flags:		${CFLAGS}
     C++ flags:		${CXXFLAGS}
     LDFLAGS:		${LDFLAGS}
