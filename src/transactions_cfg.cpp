@@ -21,7 +21,8 @@
 */
 
 #include <libxml/parser.h>
-//#include <libxml/tree.h>
+#include <libxml++/libxml++.h>
+#include <libxml++/parsers/textreader.h>
 
 #include "transactions_cfg.h"
 
@@ -30,6 +31,27 @@ TransactionsClassesCfg::TransactionsClassesCfg()
 }
 
 int TransactionsClassesCfg::load_classification(const char *szFilePath)
+{
+  return load_classification_new(szFilePath);
+}
+
+int TransactionsClassesCfg::load_classification_new(const char *szFilePath)
+{
+  if ( nullptr == szFilePath )
+    return 1;
+
+  xmlpp::TextReader xmlReader(szFilePath);
+  std::vector<xmlNodePtr> arrClasses;
+  while ( xmlReader.read() )
+    {
+      arrClasses.push_back(xmlCopyNode(xmlReader.get_current_node()->cobj(), 1));
+    }
+  if ( 0 != build_classes_tree(arrClasses) )
+    return 4;
+  return 0;
+}
+
+int TransactionsClassesCfg::load_classification_old(const char *szFilePath)
 {
   if ( nullptr == szFilePath )
     return 1;

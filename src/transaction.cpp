@@ -76,14 +76,20 @@ int Transaction::add_attributes(const std::vector<vs> &vAttrVals)
   return 0;
 }
 
-int Transaction::get_credit_index()
+int Transaction::get_credit_index(int &nIndex)
 {
+  if ( 0 == m_primary_attrs.size() )
+    return 1;
+
   int nCount = 0;
   for (std::vector<ps>::iterator it = m_primary_attrs.begin();
        it != m_primary_attrs.end(); ++it, nCount++)
     {
       if ( "Credit" == it->first )
-	return nCount;
+	{
+	  nIndex = nCount;
+	  break;
+	}
     }
 
   return 0;
@@ -127,4 +133,13 @@ int Transaction::as_xml_attributes(std::string &sOut)
   return 0;
 }
 
+IsCreditTransaction::IsCreditTransaction(int nIndex)
+{
+  m_nCreditAttributeIndex = nIndex;
+}
+
+bool IsCreditTransaction::operator()(Transaction *pT) const
+{
+  return pT->m_primary_attrs[m_nCreditAttributeIndex].second.empty() ? false : true;
+}
 

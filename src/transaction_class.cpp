@@ -31,6 +31,12 @@ TransactionClass::TransactionClass(const xmlNodePtr rhs)
 {
 }
 
+TransactionClass::~TransactionClass()
+{
+  xmlFreeNode(m_pXmlNode);
+  m_pXmlNode = nullptr;
+}
+
 int TransactionClass::as_xml(std::string &sOut)
 {
   sOut = "<class name=\"" + m_sLabel + "\"";

@@ -20,6 +20,7 @@
 
 */
 
+#include <algorithm>
 #include <csv_parser/csv_parser.hpp>
 #include "transactions_csv.h"
 
@@ -90,16 +91,13 @@ int TransactionsFile::load_transactions_file(Transactions &ts, const char *szPat
 int TransactionsFile::filter_credit_transactions(Transactions &ts)
 {
   int nIndex = -1;
-  for (Transactions::iterator it = ts.end(); it != ts.begin(); --it)
+  for (Transactions::iterator it = ts.begin(); it != ts.end(); ++it)
     {
-      if ( 0 == (*it)->m_primary_attrs.size() )
-	continue;
-      if ( -1 == nIndex )
-	nIndex = (*it)->get_credit_index();
-      if ( !(*it)->m_primary_attrs[nIndex].second.empty() )
-	ts.erase(it);
+      if ( 0 == (*it)->get_credit_index(nIndex) )
+	break;
     }
-
+  ts.erase(std::remove_if(ts.begin(), ts.end(), IsCreditTransaction(nIndex)), ts.end());
+  
   return 0;
 }
 

@@ -31,11 +31,14 @@ class TransactionClass : public Transaction
 {
  public:
   TransactionClass();
+  ~TransactionClass();
   TransactionClass(const xmlNodePtr rhs);
   virtual int as_xml(std::string &sOut);
   
   std::string m_sLabel;
   std::vector<Transaction *> m_arrTransactions;
+ protected:
+  xmlNodePtr m_pXmlNode;
 };
 
 typedef std::vector<TransactionClass *> TransactionClasses;

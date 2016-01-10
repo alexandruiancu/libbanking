@@ -29,6 +29,8 @@ class TransactionsClassesCfg
  public:
   TransactionsClassesCfg();
   int load_classification(const char *szFilePath);
+  int load_classification_old(const char *szFilePath);
+  int load_classification_new(const char *szFilePath);
   int as_xml(std::string &sOut);
   const TransactionClasses &getTransactionClasses() const;
   
