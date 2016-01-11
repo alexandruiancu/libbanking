@@ -1,6 +1,6 @@
 /*
 
- libbankingc++ - bank account transactions log analyzer
+ libbtgraph - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 
@@ -22,17 +22,17 @@
 
 #pragma once
 
-#include "transaction_class.h"
+#include "t_class.h"
 
-class TransactionsClassesCfg
+class TClassesCfg
 {
  public:
-  TransactionsClassesCfg();
+  TClassesCfg();
   int load_classification(const char *szFilePath);
   int load_classification_old(const char *szFilePath);
   int load_classification_new(const char *szFilePath);
   int as_xml(std::string &sOut);
-  const TransactionClasses &getTransactionClasses() const;
+  const TransactionClasses &getClasses() const;
   
  protected:
   int build_classes_tree(std::vector<xmlNodePtr> &arrClasses);

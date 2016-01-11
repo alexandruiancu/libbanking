@@ -1,6 +1,6 @@
 /*
 
- libbankingc++ - bank account transactions log analyzer
+ libbtgraph - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 
@@ -24,18 +24,18 @@
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
 
-#include "transactions_cfg.h"
+#include "t_cfg.h"
 
-TransactionsClassesCfg::TransactionsClassesCfg()
+TClassesCfg::TClassesCfg()
 {
 }
 
-int TransactionsClassesCfg::load_classification(const char *szFilePath)
+int TClassesCfg::load_classification(const char *szFilePath)
 {
   return load_classification_new(szFilePath);
 }
 
-int TransactionsClassesCfg::load_classification_new(const char *szFilePath)
+int TClassesCfg::load_classification_new(const char *szFilePath)
 {
   if ( nullptr == szFilePath )
     return 1;
@@ -51,7 +51,7 @@ int TransactionsClassesCfg::load_classification_new(const char *szFilePath)
   return 0;
 }
 
-int TransactionsClassesCfg::load_classification_old(const char *szFilePath)
+int TClassesCfg::load_classification_old(const char *szFilePath)
 {
   if ( nullptr == szFilePath )
     return 1;
@@ -89,12 +89,12 @@ int TransactionsClassesCfg::load_classification_old(const char *szFilePath)
   return 0;
 }
 
-const TransactionClasses &TransactionsClassesCfg::getTransactionClasses() const
+const TransactionClasses &TClassesCfg::getClasses() const
 {
   return m_arrRoots;
 }
 
-int TransactionsClassesCfg::build_classes_tree(std::vector<xmlNodePtr> &arrClasses)
+int TClassesCfg::build_classes_tree(std::vector<xmlNodePtr> &arrClasses)
 {
   unsigned int nSize = arrClasses.size();
   if ( 0 == nSize )

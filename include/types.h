@@ -1,6 +1,6 @@
 /*
 
- libbankingc++ - bank account transactions log analyzer
+ libbtgraph - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 

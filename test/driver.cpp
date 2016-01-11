@@ -1,6 +1,6 @@
 /*
 
- libbankingc++ - bank account transactions log analyzer
+ libbtgraph - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 
@@ -23,8 +23,8 @@
 #include <unistd.h>
 #include "gtest/gtest.h"
 #include "transaction.h"
-#include "transactions_csv.h"
-#include "transactions_cfg.h"
+#include "t_csv.h"
+#include "t_cfg.h"
 
 #include <locale.h>
 #include <langinfo.h>
@@ -33,10 +33,10 @@
 #include <sstream>
 #include <iomanip>
 
-TEST(TransactionCSVFileTests, General) {
+TEST(CSVFile, General) {
   Transactions ts;
-  TransactionsFile tf("transactions_in.csv");
-  EXPECT_EQ (0, tf.load_transactions_file(ts, "transactions_in.csv"));
+  TFile tf("transactions_in.csv");
+  EXPECT_EQ (0, tf.load(ts, "transactions_in.csv"));
 }
 
 TEST(ParseNumericStrings_C, General) {
@@ -62,8 +62,8 @@ TEST(ParseNumericStrings_Cpp, General) {
   EXPECT_EQ (1000.43, d);
 }
 
-TEST(TransactionsClassesCfg_load_classification, General) {
-  TransactionsClassesCfg tt;
+TEST(TClassesCfg_load_classification, General) {
+  TClassesCfg tt;
   EXPECT_EQ (0, tt.load_classification("classification.xml"));
 }
 

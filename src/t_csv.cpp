@@ -1,6 +1,6 @@
 /*
 
- libbankingc++ - bank account transactions log analyzer
+ libbtgraph - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 
@@ -22,20 +22,20 @@
 
 #include <algorithm>
 #include <csv_parser/csv_parser.hpp>
-#include "transactions_csv.h"
+#include "t_csv.h"
 
-TransactionsFile::TransactionsFile()
+TFile::TFile()
 {
 }
 
-TransactionsFile::TransactionsFile(const std::string &sPath)
+TFile::TFile(const std::string &sPath)
 {
-  if ( 0 != load_transactions_file(m_transactions, sPath.c_str()) ||
-       filter_credit_transactions(m_transactions) )
+  if ( 0 != load(m_transactions, sPath.c_str()) ||
+       filter_credit(m_transactions) )
     m_transactions.clear();
 }
 
-int TransactionsFile::load_transactions_file(Transactions &ts, const char *szPath)
+int TFile::load(Transactions &ts, const char *szPath)
 {
   if ( nullptr == szPath )
     return 1;
@@ -57,7 +57,7 @@ int TransactionsFile::load_transactions_file(Transactions &ts, const char *szPat
   while ( parser.has_more_rows() )
     {
       const csv_row &row = parser.get_row();
-      if ( is_transaction_start_row(row) )
+      if ( is_start_row(row) )
 	{
 	  if ( !bDiscardTransaction && 0 != transaction_rows.size() )
 	    {
@@ -88,7 +88,7 @@ int TransactionsFile::load_transactions_file(Transactions &ts, const char *szPat
   return 0;
 }
 
-int TransactionsFile::filter_credit_transactions(Transactions &ts)
+int TFile::filter_credit(Transactions &ts)
 {
   int nIndex = -1;
   for (Transactions::iterator it = ts.begin(); it != ts.end(); ++it)
@@ -101,7 +101,7 @@ int TransactionsFile::filter_credit_transactions(Transactions &ts)
   return 0;
 }
 
-bool TransactionsFile::is_transaction_start_row(vs vRow)
+bool TFile::is_start_row(vs vRow)
 {
   if ( 0 < vRow.size() && !vRow[0].empty() )
     return true;

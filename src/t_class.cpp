@@ -1,6 +1,6 @@
 /*
 
- libbankingc++ - bank account transactions log analyzer
+ libbtgraph - bank account transactions log analyzer
 
  Copyright (C) 2015  Alexandru Iancu <alexandru.iancu@gmail.com>
 
@@ -20,22 +20,31 @@
 
 */
 
-#pragma once
-
 #include <libxml/tree.h>
+#include "t_class.h"
 
-#include "transactions_csv.h"
-#include "transactions_cfg.h"
-
-class TransactionsTree
+TransactionClass::TransactionClass()
 {
- public:
-  TransactionsTree();
+}
 
-  int set_transactions(const TransactionsFile &csv);
-  int set_transactions_cfg(const TransactionsClassesCfg &cfg);
-  int classify_transactions(xmlNodePtr pTransactionsRoot);
+TransactionClass::TransactionClass(const xmlNodePtr rhs)
+{
+}
 
-  Transactions m_transactions;
-  TransactionClasses m_cfgTransactionClasses;
-};
+TransactionClass::~TransactionClass()
+{
+  xmlFreeNode(m_pXmlNode);
+  m_pXmlNode = nullptr;
+}
+
+int TransactionClass::as_xml(std::string &sOut)
+{
+  sOut = "<class name=\"" + m_sLabel + "\"";
+  as_xml_primary_attributes(sOut);
+  as_xml_attributes(sOut);
+  sOut += "</class>";
+  return 0;
+}
+
+
+

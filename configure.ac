@@ -3,8 +3,8 @@ dnl -*- Autoconf -*-
 
 AC_PREREQ(2.61)
 
-AC_INIT([libbanking],
-	[0.1.0],
+AC_INIT([libbtgraph],
+	[0.2.0],
 	[alexandru.iancu@gmail.com])
 
 AC_CONFIG_AUX_DIR(config)
@@ -76,9 +76,9 @@ AC_ARG_WITH([gtest],
 	HAVE_TEST=no
 	])
 
-PKG_CHECK_MODULES([libbanking], libxml++-2.6 >= 2.30)
-AC_SUBST(libbanking_CFLAGS)
-AC_SUBST(libbanking_LIBS)
+PKG_CHECK_MODULES([libbtgraph], libxml++-2.6 >= 2.30)
+AC_SUBST(libbtgraph_CFLAGS)
+AC_SUBST(libbtgraph_LIBS)
 
 AM_CONDITIONAL([BUILD_TESTS],[test "$HAVE_TEST" = "yes"])
 

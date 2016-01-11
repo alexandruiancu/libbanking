@@ -1,6 +1,6 @@
-[![Floobits Status](https://floobits.com/alexandruiancu/libbanking.svg)](https://floobits.com/alexandruiancu/libbanking/redirect)
+[![Floobits Status](https://floobits.com/alexandruiancu/libbtgraph.svg)](https://floobits.com/alexandruiancu/libbtgraph/redirect)
 
-[![Build Status](https://travis-ci.org/alexandruiancu/libbanking.svg?branch=master)](https://travis-ci.org/alexandruiancu/libbanking)
+[![Build Status](https://travis-ci.org/alexandruiancu/libbtgraph.svg?branch=master)](https://travis-ci.org/alexandruiancu/libbtgraph)
 
 ===========================================================
 Dependencies
