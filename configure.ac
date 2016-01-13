@@ -63,7 +63,7 @@ AC_ARG_WITH([libxml],
 	],
 	[AC_MSG_ERROR([missing libxml library.])])
 
-# ass google test library
+# add google test library
 AC_ARG_WITH([gtest],
 	[AS_HELP_STRING([--with-gtest],["Add google test framework library include and link paths"])],
 	[
