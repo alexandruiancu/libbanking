@@ -25,7 +25,7 @@ install:
  - ./configure
  - make VERBOSE=1
  - cd ../..
- - cd ./libbanking
+ - cd ./libbtgraph
 addons:
   apt:
     # List of whitelisted in travis packages for ubuntu-precise can be found here:
