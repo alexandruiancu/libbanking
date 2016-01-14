@@ -17,12 +17,12 @@ install:
  - cd googletest
  - cmake .
  - make VERBOSE=1
- - cd ../..
+ - cd ..
  - git clone https://github.com/alexandruiancu/libcsv_parser-1.0.0.git
  - cd ./libcsv_parser-1.0.0/libcsv_parser++-1.0.0
  - ./configure
  - make VERBOSE=1
- - cd ../..
+ - cd ..
  - cd ./libbtgraph
 addons:
   apt:
