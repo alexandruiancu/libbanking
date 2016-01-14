@@ -15,9 +15,7 @@ install:
  - cd ..
  - git clone https://github.com/alexandruiancu/googletest.git
  - cd googletest
- - mkdir build
- - cd ./build
- - cmake ..
+ - cmake .
  - make VERBOSE=1
  - cd ../..
  - git clone https://github.com/alexandruiancu/libcsv_parser-1.0.0.git
