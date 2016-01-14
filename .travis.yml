@@ -22,8 +22,7 @@ install:
  - cd ./libcsv_parser-1.0.0/libcsv_parser++-1.0.0
  - ./configure
  - make VERBOSE=1
- - cd ..
- - cd ./libbtgraph
+ - cd ../../libbtgraph
 addons:
   apt:
     # List of whitelisted in travis packages for ubuntu-precise can be found here:
