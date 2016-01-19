@@ -20,9 +20,11 @@
 
 */
 
-#include <libxml/parser.h>
+#include <algorithm>
+
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
+#include <libxml++/parsers/domparser.h>
 
 #include "t_cfg.h"
 
@@ -56,36 +58,20 @@ int TClassesCfg::load_classification_old(const char *szFilePath)
   if ( nullptr == szFilePath )
     return 1;
 
-  /*
-   * this initialize the library and check potential ABI mismatches
-   * between the version it was compiled for and the actual shared
-   * library used.
-   */
-  LIBXML_TEST_VERSION
-
-    xmlDocPtr pDoc = xmlReadFile(szFilePath, nullptr, 0);
+  xmlpp::DomParser xmlDomParser(szFilePath);
+  xmlpp::Document *pDoc = xmlDomParser.get_document();
   if ( nullptr == pDoc )
     return 2;
-  xmlNodePtr pRoot = xmlDocGetRootElement(pDoc);
-  const xmlChar *pRootNodeName = xmlCharStrdup("classes");
-  if ( nullptr == pRoot || 0 != xmlStrcmp(pRoot->name, pRootNodeName) )
-    {
-      delete [] pRootNodeName;
-      return 3;
-    }
-  delete [] pRootNodeName;
+  xmlpp::Element *pRoot = pDoc->get_root_node();
+  if ( nullptr == pRoot )
+    return 3;
+  xmlpp::NodeSet classes = pRoot->find("class");
   std::vector<xmlNodePtr> arrClasses;
-  for ( xmlNodePtr pChild = pRoot->children; nullptr != pChild; pChild = pChild->next )
-    {
-      if ( XML_ELEMENT_NODE != pChild->type )
-	continue;
-      arrClasses.push_back(xmlCopyNode(pChild, 1));
-    }
-  xmlFreeDoc(pDoc);
-  xmlCleanupParser();
+  for_each(classes.begin(), classes.end(), [&] (xmlpp::Node *pNode)
+	   {
+	     arrClasses.push_back(xmlCopyNode(pNode->cobj(), 1));
+	   });
 
-  if ( 0 != build_classes_tree(arrClasses) )
-    return 4;
   return 0;
 }
 
