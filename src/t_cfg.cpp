@@ -21,10 +21,13 @@
 */
 
 #include <algorithm>
+#include <iostream>
 
 #include <libxml++/libxml++.h>
 #include <libxml++/parsers/textreader.h>
 #include <libxml++/parsers/domparser.h>
+#include <libxml++/nodes/element.h>
+#include <libxml++/exceptions/internal_error.h>
 
 #include "t_cfg.h"
 
@@ -34,6 +37,7 @@ TClassesCfg::TClassesCfg()
 
 int TClassesCfg::load_classification(const char *szFilePath)
 {
+  load_classification_old(szFilePath);
   return load_classification_new(szFilePath);
 }
 
@@ -58,7 +62,15 @@ int TClassesCfg::load_classification_old(const char *szFilePath)
   if ( nullptr == szFilePath )
     return 1;
 
-  xmlpp::DomParser xmlDomParser(szFilePath);
+  xmlpp::DomParser xmlDomParser;
+  try
+    {
+      xmlDomParser.parse_file(szFilePath);
+    }
+  catch ( xmlpp::internal_error& err )
+    {
+      std::cout << "Exception while opening XML" << err.what() << std::endl;
+    }
   xmlpp::Document *pDoc = xmlDomParser.get_document();
   if ( nullptr == pDoc )
     return 2;
