@@ -83,6 +83,8 @@ int TClassesCfg::load_classification_old(const char *szFilePath)
 	   {
 	     arrClasses.push_back(xmlCopyNode(pNode->cobj(), 1));
 	   });
+  if ( 0 != build_classes_tree(arrClasses) )
+    return 4;
 
   return 0;
 }

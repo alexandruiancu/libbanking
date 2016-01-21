@@ -108,6 +108,29 @@ bool TFile::is_start_row(vs vRow)
   return false;
 }
 
+int TFile::as_xml(std::string &sOut)
+{
+  sOut = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+<transactions>\
+";
+  bool bWithError = false;
+  for_each(m_transactions.begin(), m_transactions.end(), [&] (Transaction *pT)
+	   {
+	     std::string sOutTemp;
+	     if ( 0 == pT->as_xml(sOutTemp) )
+	       sOut += sOutTemp;
+	     else
+	       bWithError = false;
+	   });
+  if ( bWithError )
+    {
+      sOut = "";
+      return 1;
+    }
+  sOut += "</transactions>";
+
+  return 0;
+}
 
 
 

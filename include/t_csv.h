@@ -34,5 +34,7 @@ class TFile
   int filter_credit(Transactions &ts);
   bool is_start_row(std::vector<std::string> vRow);
 
+  int as_xml(std::string &sOut);
+  
   Transactions m_transactions;
 };

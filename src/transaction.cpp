@@ -23,6 +23,8 @@
 #include <csv_parser/csv_parser.hpp>
 #include "transaction.h"
 
+#include <algorithm>
+
 Transaction::Transaction()
 {
   initialize();
@@ -44,7 +46,10 @@ int Transaction::set_primary_attributes(const vs &vAttrs)
   int nCount = 0;
   for ( vs::const_iterator it = vAttrs.begin(); it != vAttrs.end(); ++it )
     {// init attribute names
-      m_primary_attrs[nCount].first = *it;
+      std::string sAttrNameWithoutWhiteSpace;
+      if ( 0 != escapeWhiteSpace(*it, sAttrNameWithoutWhiteSpace) )
+	continue;
+      m_primary_attrs[nCount].first = sAttrNameWithoutWhiteSpace;
       nCount++;
     }
   return 0;
@@ -114,10 +119,11 @@ int Transaction::as_xml(std::string &sOut)
 
 int Transaction::as_xml_primary_attributes(std::string &sOut)
 {
-  for (std::vector<ps>::iterator it = m_primary_attrs.begin(); it != m_primary_attrs.end(); it++)
-    {
-      sOut += it->first + "=\"" + it->second + "\" ";
-    }
+  std::for_each(m_primary_attrs.begin(), m_primary_attrs.end(), [&] (ps _ps)
+	   {
+	     if ( !_ps.first.empty() )
+	       sOut += _ps.first + "=\"" + _ps.second + "\" ";
+	   });
   sOut += ">\n";
   return 0;
 }
@@ -130,6 +136,13 @@ int Transaction::as_xml_attributes(std::string &sOut)
       sOut += "<property>" + *it + "</property>\n";
     }
   sOut += "</properties>\n";
+  return 0;
+}
+
+int Transaction::escapeWhiteSpace(const std::string &sIn, std::string &sOut)
+{
+  sOut = sIn;
+  std::replace(sOut.begin(), sOut.end(), ' ', '_');
   return 0;
 }
 

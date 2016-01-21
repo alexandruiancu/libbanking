@@ -30,6 +30,7 @@
 #include <langinfo.h>
 #include <iostream>
 #include <ostream>
+#include <fstream>
 #include <sstream>
 #include <iomanip>
 
@@ -37,6 +38,12 @@ TEST(CSVFile, General) {
   Transactions ts;
   TFile tf("transactions_in.csv");
   EXPECT_EQ (0, tf.load(ts, "transactions_in.csv"));
+
+  // std::string sOut;
+  // tf.as_xml(sOut);
+  // std::ofstream of("transactions_out_gen.xml");
+  // of << sOut;
+  // of.close();
 }
 
 TEST(ParseNumericStrings_C, General) {

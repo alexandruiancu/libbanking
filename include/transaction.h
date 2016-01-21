@@ -23,6 +23,7 @@ class Transaction
  protected://helpers
   int as_xml_primary_attributes(std::string &sOut);
   int as_xml_attributes(std::string &sOut);
+  int escapeWhiteSpace(const std::string &sIn, std::string &sOut);
 };
 
 class IsCreditTransaction
