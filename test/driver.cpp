@@ -41,7 +41,7 @@ TEST(CSVFile, General) {
 
   // std::string sOut;
   // tf.as_xml(sOut);
-  // std::ofstream of("transactions_out_gen.xml");
+  // std::ofstream of("transactions_out.xml");
   // of << sOut;
   // of.close();
 }
