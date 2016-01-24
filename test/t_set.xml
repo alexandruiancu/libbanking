@@ -1,11 +1,212 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="classification.xsl"?>
-<classes name="/">
-  <class name="cash" Parent="/" Detalii="operatii cu numerar" Debit="true" Credit="false"/>
-  <class name="Retragere" Parent="cash" Detalii="Retragere numerar - diverse" Debit="true" Credit="false"/>
-  <class name="Piata" Parent="Retragere" Detalii="Legume sau fructe de la tarani" Debit="true" Credit="false"/>
-  <class name="Gradi" Parent="Retragere" Detalii="fara OP" Debit="true" Credit="false"/>
-  <class name="CursuriGradi" Parent="Gradi" Detalii="Cursurile facultative" Debit="true" Credit="false"/>
-  <class name="Materiale" Parent="Gradi" Detalii="Poze, calendare, etc" Debit="true" Credit="false"/>
-  <class name="Film" Parent="cash" Detalii="La film fara card" Debit="true" Credit="false"/>
-</classes>
+<set>
+  <classes>
+    <class name="cash" Parent="/" Detalii="operatii cu numerar" Debit="true" Credit="false"/>
+    <class name="Retragere" Parent="cash" Detalii="Retragere numerar - diverse" Debit="true" Credit="false"/>
+    <class name="Piata" Parent="Retragere" Detalii="Legume sau fructe de la tarani" Debit="true" Credit="false"/>
+    <class name="Gradi" Parent="Retragere" Detalii="fara OP" Debit="true" Credit="false"/>
+    <class name="CursuriGradi" Parent="Gradi" Detalii="Cursurile facultative" Debit="true" Credit="false"/>
+    <class name="Materiale" Parent="Gradi" Detalii="Poze, calendare, etc" Debit="true" Credit="false"/>
+    <class name="Film" Parent="cash" Detalii="La film fara card" Debit="true" Credit="false"/>
+  </classes>
+  <transactions>
+    <transaction Data="31 octombrie 2015" Detalii_tranzactie="Retragere numerar" Debit="540,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 31-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: 5554 ING OFFICE OLTENIT  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="31 octombrie 2015" Detalii_tranzactie="Schimb valutar Home'Bank" Debit="1.349,13" Credit="" >
+      <properties>
+	<property></property>
+	<property>In contul: ABCDEFGHIJKLMNOPRSTUVXYZ</property>
+	<property>Rata: 4,49710</property>
+	<property>Referinta: 5235</property>
+	<property>Suma: 300,00 EUR</property>
+      </properties>
+    </transaction>
+    <transaction Data="30 octombrie 2015" Detalii_tranzactie="Retragere numerar" Debit="30,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 30-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: 6168 ING B AFI PALACE  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="28 octombrie 2015" Detalii_tranzactie="Retragere numerar" Debit="200,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 28-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: 5682 OFFICE COTROCENIMALL  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="27 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="23,80" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 23-10-2015 Autorizare: 628400</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: AUCHAN 31 COTROCENI  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="27 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="21,20" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 26-10-2015 Autorizare: 443258</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: NINOTTO AFI PALACE  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="27 octombrie 2015" Detalii_tranzactie="Retragere numerar" Debit="40,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 27-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: 6168 ING B AFI PALACE  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="26 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="25,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 24-10-2015 Autorizare: 070526</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: PIZZA HUT PHD SUN PLAZ  RO  MUNICIPIUL BU</property>
+      </properties>
+    </transaction>
+    <transaction Data="24 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="398,70" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 24-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: CORA SUN PLAZA A  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="23 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="2,15" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 21-10-2015 Autorizare: 968011</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: AUCHAN 31 COTROCENI  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="23 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="10,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 21-10-2015 Autorizare: 888191</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: RATB UVERTURII  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="22 octombrie 2015" Detalii_tranzactie="Prima asigurari generale" Debit="73,32" Credit="" >
+      <properties>
+	<property></property>
+	<property> 1200000340032</property>
+	<property>Beneficiar: Amsterdam Broker</property>
+	<property>Detalii: Plata cf polita asigurare nr.</property>
+	<property>Referinta: 118113308</property>
+	<property>Suma: 16,34 EUR</property>
+      </properties>
+    </transaction>
+    <transaction Data="22 octombrie 2015" Detalii_tranzactie="Transfer Home'Bank" Debit="1.350,00" Credit="" >
+      <properties>
+	<property></property>
+	<property> Calin IONESCU</property>
+	<property>Banca: BTRA CENTRALA</property>
+	<property>Beneficiar: S.C. KIDS PALACE SRL</property>
+	<property>Detalii: taxa luna noiembrie</property>
+	<property>In contul: ABCDEFGHIJKLMNOPRSTUVXYZ</property>
+	<property>Referinta: 118040042</property>
+      </properties>
+    </transaction>
+    <transaction Data="21 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="15,60" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 21-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: AFI BONITA  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="21 octombrie 2015" Detalii_tranzactie="Retragere numerar" Debit="40,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 21-10-2015</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: 5027 UVERTURII BRANCH  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="20 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="34,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 18-10-2015 Autorizare: 044276</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: JYSK VULCAN C2  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="20 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="20,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 19-10-2015 Autorizare: 289295</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: NINOTTO AFI PALACE  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="20 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="35,00" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 16-10-2015 Autorizare: 324803</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: RATB PIEPTANARI  RO  BUCURESTI</property>
+      </properties>
+    </transaction>
+    <transaction Data="19 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="38,40" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 16-10-2015 Autorizare: 415954</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: GO GREEN FOOD  RO  MUNICIPIUL BU</property>
+      </properties>
+    </transaction>
+    <transaction Data="19 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="17,89" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 18-10-2015 Autorizare: 077981</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: LEROY MERLIN ROMANIA SRL  RO  BUCURESTI</property>
+      </properties>
+      </transaction><transaction Data="19 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="21,40" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 18-10-2015 Autorizare: 081608</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: SPARTAN FOOD RESTAURAN  RO  MUNICIPIUL BU</property>
+      </properties>
+      </transaction><transaction Data="19 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="73,27" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 17-10-2015 Autorizare: 924070</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: CARREFOUR ROMANIA SA  RO  BUCURESTI</property>
+      </properties>
+      </transaction><transaction Data="19 octombrie 2015" Detalii_tranzactie="Cumparare POS" Debit="244,73" Credit="" >
+      <properties>
+	<property></property>
+	<property>Data: 17-10-2015 Autorizare: 897293</property>
+	<property>Nr. card: 46xx xxxx xxxx 0437</property>
+	<property>Terminal: OMV 1053/  RO  Bucuresti</property>
+      </properties>
+    </transaction>
+    <transaction Data="19 octombrie 2015" Detalii_tranzactie="Transfer Home'Bank" Debit="17,63" Credit="" >
+      <properties>
+	<property></property>
+	<property>Banca: INGB CENTRALA</property>
+	<property>Beneficiar: REBU</property>
+	<property>Detalii: factura 6072173, cod client 634488</property>
+	<property>In contul: ABCDEFGHIJKLMNOPRSTUVXYZ</property>
+	<property>Referinta: 117782821</property>
+      </properties>
+    </transaction>
+  </transactions>
+</set>
