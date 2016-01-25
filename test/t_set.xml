@@ -3,8 +3,8 @@
 <set>
   <classes>
     <class name="cash" Parent="/" Detalii="operatii cu numerar" Debit="true" Credit="false"/>
-    <class name="Retragere" Parent="cash" Detalii="Retragere numerar - diverse" Debit="true" Credit="false"/>
-    <class name="Piata" Parent="Retragere" Detalii="Legume sau fructe de la tarani" Debit="true" Credit="false"/>
+    <class name="Retragere" Parent="cash" Detalii="Retragere numerar" Debit="true" Credit="false"/>
+    <class name="Piata" Parent="Retragere" Detalii="Cumparare POS" Debit="true" Credit="false"/>
     <class name="Gradi" Parent="Retragere" Detalii="fara OP" Debit="true" Credit="false"/>
     <class name="CursuriGradi" Parent="Gradi" Detalii="Cursurile facultative" Debit="true" Credit="false"/>
     <class name="Materiale" Parent="Gradi" Detalii="Poze, calendare, etc" Debit="true" Credit="false"/>
