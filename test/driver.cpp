@@ -36,7 +36,7 @@
 
 TEST(CSVFile, General) {
   Transactions ts;
-  TFile tf("transactions_in.csv");
+  TCsvFile tf("transactions_in.csv");
   EXPECT_EQ (0, tf.load(ts, "transactions_in.csv"));
 
   // std::string sOut;
@@ -71,7 +71,7 @@ TEST(ParseNumericStrings_Cpp, General) {
 
 TEST(TClassesCfg_load_classification, General) {
   TClassesCfg tt;
-  EXPECT_EQ (0, tt.load_classification("classification.xml"));
+  EXPECT_EQ (0, tt.load_classification("classification_old.xml"));
 }
 
 int main(int argc, char **argv) {

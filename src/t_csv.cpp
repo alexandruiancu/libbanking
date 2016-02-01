@@ -21,21 +21,22 @@
 */
 
 #include <algorithm>
+#include <fstream>
 #include <csv_parser/csv_parser.hpp>
 #include "t_csv.h"
 
-TFile::TFile()
+TCsvFile::TCsvFile()
 {
 }
 
-TFile::TFile(const std::string &sPath)
+TCsvFile::TCsvFile(const std::string &sPath)
 {
   if ( 0 != load(m_transactions, sPath.c_str()) ||
        filter_credit(m_transactions) )
     m_transactions.clear();
 }
 
-int TFile::load(Transactions &ts, const char *szPath)
+int TCsvFile::load(Transactions &ts, const char *szPath)
 {
   if ( nullptr == szPath )
     return 1;
@@ -88,7 +89,7 @@ int TFile::load(Transactions &ts, const char *szPath)
   return 0;
 }
 
-int TFile::filter_credit(Transactions &ts)
+int TCsvFile::filter_credit(Transactions &ts)
 {
   int nIndex = -1;
   for (Transactions::iterator it = ts.begin(); it != ts.end(); ++it)
@@ -101,16 +102,17 @@ int TFile::filter_credit(Transactions &ts)
   return 0;
 }
 
-bool TFile::is_start_row(vs vRow)
+bool TCsvFile::is_start_row(vs vRow)
 {
   if ( 0 < vRow.size() && !vRow[0].empty() )
     return true;
   return false;
 }
 
-int TFile::as_xml(std::string &sOut)
+int TCsvFile::as_xml(const std::string &sPath)
 {
-  sOut = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+  std::fstream sOut(sPath, ios_base::out | ios_base::trunc);
+  sOut << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
 <transactions>\
 ";
   bool bWithError = false;
@@ -118,17 +120,17 @@ int TFile::as_xml(std::string &sOut)
 	   {
 	     std::string sOutTemp;
 	     if ( 0 == pT->as_xml(sOutTemp) )
-	       sOut += sOutTemp;
+	       sOut << sOutTemp;
 	     else
 	       bWithError = false;
 	   });
   if ( bWithError )
     {
-      sOut = "";
+      sOut.close();
       return 1;
     }
-  sOut += "</transactions>";
-
+  sOut << "</transactions>";
+  sOut.close();
   return 0;
 }
 

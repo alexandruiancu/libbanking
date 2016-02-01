@@ -25,16 +25,16 @@
 #include <string>
 #include "transaction.h"
 
-class TFile
+class TCsvFile
 {
  public:
-  TFile();
-  TFile(const std::string &sPath);
+  TCsvFile();
+  TCsvFile(const std::string &sPath);
   int load(Transactions &ts, const char *szPath);
   int filter_credit(Transactions &ts);
   bool is_start_row(std::vector<std::string> vRow);
 
-  int as_xml(std::string &sOut);
+  int as_xml(const std::string &sPath);
   
   Transactions m_transactions;
 };

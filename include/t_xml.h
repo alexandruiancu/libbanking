@@ -20,29 +20,12 @@
 
 */
 
-#include <libxml/tree.h>
+#pragma once
 
-#include "t_tree.h"
+#include <string>
 
-int TTree::load(const TFile &csv)
+class TXmlFile
 {
-  m_transactions = csv.m_transactions;
-  return 0;
-}
-
-int TTree::set_cfg(const TClassesCfg &cfg)
-{
-  m_cfg = cfg.getClasses();
-  return 0;
-}
-
-int TTree::classify(xmlNodePtr pRoot)
-{
-  return 0;
-}
-
-
-
-
-
-
+ public:
+  TXmlFile(const std::string &sPath);
+};
