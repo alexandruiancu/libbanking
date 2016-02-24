@@ -24,6 +24,7 @@
 
 #include <string>
 #include "transaction.h"
+#include "2Dmatrix.h"
 
 class TCsvFile
 {
@@ -37,4 +38,5 @@ class TCsvFile
   int as_xml(const std::string &sPath);
   
   Transactions m_transactions;
+  matrix<std::string> m_m;
 };

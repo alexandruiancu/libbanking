@@ -50,42 +50,11 @@ int TCsvFile::load(Transactions &ts, const char *szPath)
   
   if ( !parser.has_more_rows() )
     return 2;
-  const csv_row &rowAttributes = parser.get_row();
-  Transaction *pT = nullptr;
-  bool bDiscardTransaction = false;
-  std::vector<csv_row> transaction_rows;
 
   while ( parser.has_more_rows() )
-    {
-      const csv_row &row = parser.get_row();
-      if ( is_start_row(row) )
-	{
-	  if ( !bDiscardTransaction && 0 != transaction_rows.size() )
-	    {
-	      pT->add_attributes(transaction_rows);
-	      ts.push_back(pT);
-	      pT = nullptr;
-	    }
+    m_m.row_push_back(parser.get_row());
 
-	  if ( nullptr == pT )
-	    pT = new Transaction();
-	  bDiscardTransaction =
-	    (0 != pT->initialize() ||
-	     0 != pT->set_primary_attributes(rowAttributes) ||
-	     0 != pT->set_primary_attribute_values(row));
-	  transaction_rows.clear();
-	}
-      else
-	transaction_rows.push_back(row);
-    }
-
-  // add last transaction
-  if ( !bDiscardTransaction && 0 != transaction_rows.size() &&
-       nullptr != pT )
-    {
-      pT->add_attributes(transaction_rows);
-      ts.push_back(pT);
-    }
+  ts;//skip warnings
   return 0;
 }
 
