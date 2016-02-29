@@ -8,7 +8,7 @@ class matrix
   typedef std::vector<T> T2Dmatrix;
  public:
   matrix();
-  int row_push_back(const std::vector<T> &row);
+  int row_push_back(std::vector<T> &&row);
   int row_pop_front(std::vector<T> &rowReturn);
  protected:
   T2Dmatrix m_data;
